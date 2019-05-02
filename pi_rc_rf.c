@@ -5,26 +5,25 @@
 
 
 
-
-
 #include "radio.h"
 #include "nexa.h"
 
 int main(int argc, char **argv){
 
-    uint frequency = 0x374F; // not sure if this should be uint or what
-
 	// setup DMA and fm
 	setup_io();
 	setup_fm();
-        // if (arguments.frequency == 0x374F)
-        //     printf("Tune to 144.64 MHz\n");
-        // if (arguments.frequency == 0x5000)
-        //     printf("Tune to 100 MHz\n");
-	ACCESS(CM_GP0DIV) = (0x5a << 24) + frequency; // Tune to 144.64 MHz to get the third harmonic at 433.92 MHz
 
 	// setup u-sec timer
 	initUScounter();
+
+	// set frequency
+	/* more info on how raspi calculates/divides clocks (scroll down for equation):
+	   https://www.tablix.org/~avian/blog/archives/2018/02/notes_on_the_general_purpose_clock_on_bcm2835/ 
+	   -> Base clock is probably 500 MHz, then divide by centerFreq. Shift 12 bits to proper position, round up.*/
+	float centerFreq = 100.3;
+	int centerFreqDivider = (int)((500.0 / centerFreq) * (float)(1<<12) + 0.5);
+	ACCESS(CM_GP0DIV) = (0x5a << 24) + centerFreqDivider; // set the GPIO clock frequency divider (0x5a is password)
 
 
 	int currentTime = getUSTime()
@@ -42,13 +41,6 @@ int main(int argc, char **argv){
 	return 0;
 }
 
-
-
-
-// setup interrupt to fire every 14.4 ms
-int transmitInterrupt() {
-	transmit(lrpulse, fbpulse);
-}
 
 
 

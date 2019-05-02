@@ -23,6 +23,18 @@
 #include <sys/stat.h>
 
 void setup_fm(){
+
+  // this part is in the original pifm, probably not needed unless actually doing DMA
+  /* open /dev/mem */
+    // if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
+    //     printf("can't open /dev/mem \n");
+    //     exit (-1);
+    // }
+
+
+
+    // JC: all of 7e refers to memories with hex base 7e... (clk, dma, pwm, etc)
+    // see pifm intro for more details
     allof7e = (unsigned *)mmap(
                   NULL,
                   0x01000000,  //len
@@ -38,8 +50,8 @@ void setup_fm(){
     CLRBIT(GPFSEL0 , 13);
     CLRBIT(GPFSEL0 , 12);
 
+    // 
     struct GPCTL setupword = {6/*SRC*/, 1, 0, 0, 0, 1,0x5a};
-
     ACCESS(CM_GP0CTL) = *((int*)&setupword);
 }
 
@@ -91,7 +103,7 @@ void setup_io(){
 
 
 /* Added functions to enable and disable carrier */
-
+// JC: system clocks can be divided and outputted to gpio pins. This enables/disables that function.
 void askHigh(){
 	struct GPCTL setupword = {6/*SRC*/, 1, 0, 0, 0, 1,0x5a};	// Set CM_GP0CTL.ENABLE to 1
     ACCESS(CM_GP0CTL) = *((int*)&setupword);
@@ -101,3 +113,6 @@ void askLow(){
 	struct GPCTL setupword = {6/*SRC*/, 0, 0, 0, 0, 1,0x5a};	// Set CM_GP0CTL.ENABLE to 0
     ACCESS(CM_GP0CTL) = *((int*)&setupword);
 }
+
+
+// for a function that actually modulates the frequency see the "modulate" function in pifm

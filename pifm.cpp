@@ -18,6 +18,12 @@
 // with this program.  If not, you may write to the Free Software Foundation,
 // Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+
+
+
+// JC: manual with more info on memory (search for CM_GP0CTL)
+// https://www.raspberrypi.org/app/uploads/2012/02/BCM2835-ARM-Peripherals.pdf
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -139,9 +145,10 @@ void setup_fm()
 }
 
 
-void modulate(int m)
-{
-    ACCESS(CM_GP0DIV) = (0x5a << 24) + 0x4d72 + m;
+void modulate(int m) {
+    // JC:               5a password   bits 23-12: integer part of divisor, bits 11-0: fractional part
+    // basically we're changing the clock frequency (hence modulate)
+    ACCESS(CM_GP0DIV) = (0x5a << 24) + 0x4d72 + m;    
 }
 
 struct CB {
