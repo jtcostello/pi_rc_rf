@@ -2,15 +2,17 @@
 
 
 // can try this, but to get more precise timing might need to use dma buffers like pi-fm
+// also if use DMA don't have to keep looping
+
+// might be useful if use dma for rc commands: https://github.com/bskari/pi-rc/blob/master/pi_pcm.c
 
 
 
 #include "radio.h"
-#include "nexa.h"
 
 int main(int argc, char **argv){
 
-	// setup DMA and fm
+	// setup gpio mem and fm
 	setup_io();
 	setup_fm();
 
@@ -20,7 +22,9 @@ int main(int argc, char **argv){
 	// set frequency
 	/* more info on how raspi calculates/divides clocks (scroll down for equation):
 	   https://www.tablix.org/~avian/blog/archives/2018/02/notes_on_the_general_purpose_clock_on_bcm2835/ 
-	   -> Base clock is probably 500 MHz, then divide by centerFreq. Shift 12 bits to proper position, round up.*/
+	   -> Base clock is probably 500 MHz, then divide by centerFreq. Shift 12 bits to proper position, round up.
+	   additional info on clock base frequencies: 
+	   https://raspberrypi.stackexchange.com/questions/1153/what-are-the-different-clock-sources-for-the-general-purpose-clocks */
 	float centerFreq = 100.3;
 	int centerFreqDivider = (int)((500.0 / centerFreq) * (float)(1<<12) + 0.5);
 	ACCESS(CM_GP0DIV) = (0x5a << 24) + centerFreqDivider; // set the GPIO clock frequency divider (0x5a is password)

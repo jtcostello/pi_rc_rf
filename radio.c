@@ -1,5 +1,16 @@
 // https://github.com/s7mx1/pihat
 
+
+
+// more info on how raspi calculates/divides clocks (scroll down for equation):
+// https://www.tablix.org/~avian/blog/archives/2018/02/notes_on_the_general_purpose_clock_on_bcm2835/
+
+
+// slightly easier way to do this with python: 
+// http://asliceofraspberrypi.blogspot.com/2014/10/generating-radio-frequencies-using.html
+
+
+
 /******************************************************************************/
 /*                    Fractional-N synthesizer setup                          */
 /*                                                                            */
@@ -30,7 +41,6 @@ void setup_fm(){
     //     printf("can't open /dev/mem \n");
     //     exit (-1);
     // }
-
 
 
     // JC: all of 7e refers to memories with hex base 7e... (clk, dma, pwm, etc)
@@ -102,8 +112,11 @@ void setup_io(){
 
 
 
+
+
 /* Added functions to enable and disable carrier */
-// JC: system clocks can be divided and outputted to gpio pins. This enables/disables that function.
+/* JC: system clocks can be divided and outputted to gpio pins. This enables/disables that function.
+        (Pifm says you can't disable it (but we are?) so suggests changing the frequency)
 void askHigh(){
 	struct GPCTL setupword = {6/*SRC*/, 1, 0, 0, 0, 1,0x5a};	// Set CM_GP0CTL.ENABLE to 1
     ACCESS(CM_GP0CTL) = *((int*)&setupword);

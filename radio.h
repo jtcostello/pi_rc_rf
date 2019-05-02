@@ -1,3 +1,5 @@
+// https://github.com/s7mx1/pihat
+
 #ifndef _RADIO_H_
 #define _RADIO_H_
 
@@ -36,7 +38,7 @@ void setup_io();
 #define DMABASE (0x7E007000)
 
 struct GPCTL {
-    char SRC         : 4;
+    char SRC         : 4; // src 4 = PLLA = 650 MHz
     char ENAB        : 1;
     char KILL        : 1;
     char             : 1;
