@@ -33,14 +33,16 @@ int main(int argc, char **argv){
 	ACCESS(CM_GP0DIV) = (0x5a << 24) + centerFreqDivider; // set the GPIO clock frequency divider (0x5a is password)
 
 
-	int currentTime = getUSTime()
+	int currentTime = getUSTime();
 	while(1) {
-		if ((getUSTime-currentTime) > 14400) {		// send pulse sequence every 14.4 ms
+		if ((getUSTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
 			// update drive speed/direction
 			uint8_t lrpulse = 1000 // 0.5 to 2.1ms
 			uint8_t fbpulse = 1000 // 0.5 to 2.1ms
 			// transmit to car
 			transmit(lrpulse, fbpulse);
+
+			currentTime = getUSTime();
 		}
 		
 	}
