@@ -55,6 +55,7 @@ int main(int argc, char **argv){
 	// 	printf("%d", getUSTime());
 	// }
 	printf("running");
+	askLow();
 	while (1) {
 		usleep(1);
 	}
