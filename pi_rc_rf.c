@@ -6,9 +6,12 @@
 
 // might be useful if use dma for rc commands: https://github.com/bskari/pi-rc/blob/master/pi_pcm.c
 
-
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 #include "radio.h"
+#include "ustimer.h"
 
 int main(int argc, char **argv){
 
