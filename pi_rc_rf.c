@@ -60,7 +60,7 @@ int main(int argc, char **argv){
 	// 	usleep(1);
 	// }
 	int lrpulse = 500; // 0.5 to 2.1ms
-	int fbpulse = 750; // 0.5 to 2.1ms
+	int fbpulse = 500; // 0.5 to 2.1ms
 	while(1) {
 		//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
 			// update drive speed/direction
@@ -76,6 +76,10 @@ int main(int argc, char **argv){
 			lrpulse++;
 			if (lrpulse>2100) {
 				lrpulse = 500;
+			}
+			fbpulse++;
+			if (fbpulse>2100) {
+				fbpulse = 500;
 			}
 		
 	}
