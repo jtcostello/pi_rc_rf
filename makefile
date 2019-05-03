@@ -3,4 +3,4 @@ all:
 	gcc pi_rc_rf.c radio.c radio.h ustimer.h ustimer.c -o rcrf -w
 
 clean:
-	rm -f pifm *.o
+	rm -f rcrf *.o
