@@ -10,6 +10,22 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
+// probably don't need all these
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <math.h>
+#include <fcntl.h>
+#include <assert.h>
+#include <malloc.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <signal.h>
+#include <unistd.h>
+
 
 #include "radio.h"
 #include "ustimer.h"

@@ -116,13 +116,13 @@ void setup_io(){
 
 /* Added functions to enable and disable carrier */
 /* JC: system clocks can be divided and outputted to gpio pins. This enables/disables that function.
-        (Pifm says you can't disable it (but we are?) so suggests changing the frequency)
-void askHigh(){
+        (Pifm says you can't disable it (but we are?) so suggests changing the frequency) */
+void askHigh() {
 	struct GPCTL setupword = {6/*SRC*/, 1, 0, 0, 0, 1,0x5a};	// Set CM_GP0CTL.ENABLE to 1
-    ACCESS(CM_GP0CTL) = *((int*)&setupword);
+  ACCESS(CM_GP0CTL) = *((int*)&setupword);
 }
 
-void askLow(){
+void askLow() {
 	struct GPCTL setupword = {6/*SRC*/, 0, 0, 0, 0, 1,0x5a};	// Set CM_GP0CTL.ENABLE to 0
     ACCESS(CM_GP0CTL) = *((int*)&setupword);
 }

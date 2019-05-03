@@ -146,7 +146,7 @@ void setup_fm()
 
 
 void modulate(int m) {
-    // JC:               5a password   bits 23-12: integer part of divisor, bits 11-0: fractional part
+    // JC:   0x5a is password,   bits 23-12: integer part of divisor, bits 11-0: fractional part
     // basically we're changing the clock frequency (hence modulate)
     ACCESS(CM_GP0DIV) = (0x5a << 24) + 0x4d72 + m;    
 }
@@ -618,7 +618,7 @@ void setupDMA( float centerFreq ){
    // make data page contents - it's essientially 1024 different commands for the
    // DMA controller to send to the clock module at the correct time.
    for (int i=0; i<1024; i++)
-     ((int*)(constPage.v))[i] = (0x5a << 24) + centerFreqDivider - 512 + i;
+     ((int*)(constPage.v))[i] = (0x5a << 24) + centerFreqDivider - 512 + i;  // JC: probably stores CM_GP0DIV clock settings, which are piped through DMA
    
    
    int instrCnt = 0;
