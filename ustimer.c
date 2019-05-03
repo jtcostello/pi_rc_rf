@@ -2,7 +2,19 @@
 
 // from https://yosh.ke.mu/article/raspberry_pi_getting_time
 
-#define BCM2708_ST_BASE 0x20003000 /* BCM 2835 System Timer */
+#include "ustimer.h"
+
+// probably don't need all of these
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <math.h>
+#include <fcntl.h>
+#include <assert.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 volatile unsigned *TIMER_registers;
 
