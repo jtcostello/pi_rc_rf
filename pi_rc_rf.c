@@ -51,9 +51,9 @@ int main(int argc, char **argv){
 
 
 	int currentTime = getUSTime();
-	while(1) {
-		printf("%d", getUSTime());
-	}
+	// while(1) {
+	// 	printf("%d", getUSTime());
+	// }
 
 	while(1) {
 		//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
