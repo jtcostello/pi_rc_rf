@@ -54,26 +54,26 @@ int main(int argc, char **argv){
 	// while(1) {
 	// 	printf("%d", getUSTime());
 	// }
-	printf("running");
-	//askLow();
-	while (1) {
-		usleep(1);
-	}
-	// while(1) {
-	// 	//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
-	// 		// update drive speed/direction
-	// 		uint8_t lrpulse = 1000; // 0.5 to 2.1ms
-	// 		uint8_t fbpulse = 1000; // 0.5 to 2.1ms
-	// 		// transmit to car
-	// 		transmit(lrpulse, fbpulse);
-
-	// 		currentTime = getUSTime();
-
-	// 		printf("sending");
-	// 	//}
-	// 		usleep(14300);
-		
+	// printf("running");
+	// //askLow();
+	// while (1) {
+	// 	usleep(1);
 	// }
+	while(1) {
+		//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
+			// update drive speed/direction
+			uint8_t lrpulse = 1000; // 0.5 to 2.1ms
+			uint8_t fbpulse = 1000; // 0.5 to 2.1ms
+			// transmit to car
+			transmit(lrpulse, fbpulse);
+
+			//currentTime = getUSTime();
+
+			printf("sending");
+		//}
+			usleep(14300);
+		
+	}
 
 	return 0;
 }
