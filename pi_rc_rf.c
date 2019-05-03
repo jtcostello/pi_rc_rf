@@ -52,6 +52,10 @@ int main(int argc, char **argv){
 
 	int currentTime = getUSTime();
 	while(1) {
+		printf("%d", getUSTime());
+	}
+	
+	while(1) {
 		if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
 			// update drive speed/direction
 			uint8_t lrpulse = 1000; // 0.5 to 2.1ms
