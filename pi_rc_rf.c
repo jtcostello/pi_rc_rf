@@ -55,6 +55,9 @@ int main(int argc, char **argv){
 	// 	printf("%d", getUSTime());
 	// }
 	printf("running");
+	while (1) {
+		usleep(1);
+	}
 	// while(1) {
 	// 	//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
 	// 		// update drive speed/direction
