@@ -3,7 +3,7 @@
 #ifndef _RADIO_H_
 #define _RADIO_H_
 
-#define BCM2708_PERI_BASE        0x20000000
+#define BCM2708_PERI_BASE         0x3F000000 //rpi2 base    0x20000000
 #define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
 
 #define PAGE_SIZE (4*1024)
@@ -38,7 +38,7 @@ void setup_io();
 #define DMABASE (0x7E007000)
 
 struct GPCTL {
-    char SRC         : 4; // src 4 = PLLA = 650 MHz
+    char SRC         : 4; // JC: src 4 = PLLA = 650 MHz
     char ENAB        : 1;
     char KILL        : 1;
     char             : 1;
