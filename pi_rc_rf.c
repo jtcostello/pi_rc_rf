@@ -45,7 +45,7 @@ int main(int argc, char **argv){
 	   -> Base clock is probably 500 MHz, then divide by centerFreq. Shift 12 bits to proper position, round up.
 	   additional info on clock base frequencies: 
 	   https://raspberrypi.stackexchange.com/questions/1153/what-are-the-different-clock-sources-for-the-general-purpose-clocks */
-	float centerFreq = 100.3;
+	float centerFreq = 10.0;
 	int centerFreqDivider = (int)((500.0 / centerFreq) * (float)(1<<12) + 0.5);
 	ACCESS(CM_GP0DIV) = (0x5a << 24) + centerFreqDivider; // set the GPIO clock frequency divider (0x5a is password)
 
@@ -54,22 +54,22 @@ int main(int argc, char **argv){
 	// while(1) {
 	// 	printf("%d", getUSTime());
 	// }
+	printf("running");
+	// while(1) {
+	// 	//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
+	// 		// update drive speed/direction
+	// 		uint8_t lrpulse = 1000; // 0.5 to 2.1ms
+	// 		uint8_t fbpulse = 1000; // 0.5 to 2.1ms
+	// 		// transmit to car
+	// 		transmit(lrpulse, fbpulse);
 
-	while(1) {
-		//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
-			// update drive speed/direction
-			uint8_t lrpulse = 1000; // 0.5 to 2.1ms
-			uint8_t fbpulse = 1000; // 0.5 to 2.1ms
-			// transmit to car
-			transmit(lrpulse, fbpulse);
+	// 		currentTime = getUSTime();
 
-			currentTime = getUSTime();
-
-			printf("sending");
-		//}
-			usleep(14300);
+	// 		printf("sending");
+	// 	//}
+	// 		usleep(14300);
 		
-	}
+	// }
 
 	return 0;
 }
