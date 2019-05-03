@@ -59,19 +59,24 @@ int main(int argc, char **argv){
 	// while (1) {
 	// 	usleep(1);
 	// }
+	int lrpulse = 500; // 0.5 to 2.1ms
+	int fbpulse = 750; // 0.5 to 2.1ms
 	while(1) {
 		//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
 			// update drive speed/direction
-			uint8_t lrpulse = 1000; // 0.5 to 2.1ms
-			uint8_t fbpulse = 1000; // 0.5 to 2.1ms
+		
 			// transmit to car
 			transmit(lrpulse, fbpulse);
 
 			//currentTime = getUSTime();
 
-			printf("sending");
+			printf("sending\n");
 		//}
 			usleep(14300);
+			lrpulse++;
+			if (lrpulse>2100) {
+				lrpulse = 500;
+			}
 		
 	}
 
