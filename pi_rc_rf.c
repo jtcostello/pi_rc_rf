@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 
 	// turn off transmit if selected
 	if (lrpulse == 111) {
-		printf("turning off transmitter");
+		printf("turning off transmitter\n");
 		askLow();
 		exit(0);
 	}
