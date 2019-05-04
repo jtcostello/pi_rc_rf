@@ -54,8 +54,8 @@ int main(int argc, char *argv[]){
 	ACCESS(CM_GP0DIV) = (0x5a << 24) + centerFreqDivider; // set the GPIO clock frequency divider (0x5a is password)
 
 	// set initial driving settings
-	int lrpulse = 500; // 0.5 to 2.1ms
-	int fbpulse = 1300; // 0.5 to 2.1ms
+	int lrpulse = atoi(argv[1]); //2100; // 0.5 to 2.1ms
+	int fbpulse = atoi(argv[2]); //1300; // 0.5 to 2.1ms
 
 	// variables for timing
 	struct timeval tNow, tLong, tEnd;
@@ -69,10 +69,10 @@ int main(int argc, char *argv[]){
 
 	while(1) {
 		// update drive speed/direction
-		lrpulse += 10;
-		if (lrpulse>2100) {
-			lrpulse = 500;
-		}
+		// lrpulse += 10;
+		// if (lrpulse>2100) {
+		// 	lrpulse = 500;
+		// }
 		// fbpulse += 10;
 		// if (fbpulse>2100) {
 		// 	fbpulse = 500;
