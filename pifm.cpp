@@ -71,7 +71,7 @@ volatile unsigned *allof7e;
 #define GPFSEL0 (0x7E200000)
 #define CM_GP0DIV (0x7e101074)
 #define CLKBASE (0x7E101000)
-#define DMABASE (0x7E007000)
+#define DMABASE (0x7E007000)  // JC: DMA channel 0
 #define PWMBASE  (0x7e20C000) /* PWM controller */
 
 

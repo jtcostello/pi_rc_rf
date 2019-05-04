@@ -28,7 +28,8 @@
 
 
 #include "radio.h"
-#include "ustimer.h"
+//#include "ustimer.h"
+#include "delay.h"
 
 int main(int argc, char **argv){
 
@@ -62,25 +63,22 @@ int main(int argc, char **argv){
 	int lrpulse = 500; // 0.5 to 2.1ms
 	int fbpulse = 500; // 0.5 to 2.1ms
 	while(1) {
-		//if ((currentTime-getUSTime()) > 14400) {		// send pulse sequence every 14.4 ms
-			// update drive speed/direction
-		
-			// transmit to car
-			transmit(lrpulse, fbpulse);
+		// update drive speed/direction
+		lrpulse += 10;
+		if (lrpulse>2100) {
+			lrpulse = 500;
+		}
+		fbpulse += 10;
+		if (fbpulse>2100) {
+			fbpulse = 500;
+		}
 
-			//currentTime = getUSTime();
+		// transmit to car
+		transmit(lrpulse, fbpulse);
+		printf("sending\n");
 
-			printf("sending\n");
-		//}
-			usleep(14300);
-			lrpulse++;
-			if (lrpulse>2100) {
-				lrpulse = 500;
-			}
-			fbpulse++;
-			if (fbpulse>2100) {
-				fbpulse = 500;
-			}
+
+		delayMicroseconds(14000);
 		
 	}
 
@@ -96,19 +94,19 @@ int main(int argc, char **argv){
 void transmit(uint8_t lrpulse, uint8_t fbpulse){
 	// go low to start pulses
 	askLow();
-	usleep(LOWDELAY);
+	delayMicroseconds(LOWDELAY);
 
 	// 1st pulse - left/right
     askHigh();
-    usleep(lrpulse);
+    delayMicroseconds(lrpulse);
     askLow();
-	usleep(LOWDELAY);
+	delayMicroseconds(LOWDELAY);
 
 	// 2nd pulse - forward/back
     askHigh();
-    usleep(fbpulse);
+    delayMicroseconds(fbpulse);
     askLow();
-	usleep(LOWDELAY);
+	delayMicroseconds(LOWDELAY);
 
 	// return to high
 	askHigh();
