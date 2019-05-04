@@ -32,7 +32,7 @@
 #include "delay.h"
 
 
-#define LOWDELAY 100 // 0.2 ms
+#define LOWDELAY 300 // 0.2 ms
 
 
 
