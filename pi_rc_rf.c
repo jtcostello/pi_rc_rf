@@ -37,7 +37,7 @@
 
 
 
-int main(int argc, char **argv){
+int main(int argc, char *argv[]){
 
 	// setup gpio mem and fm
 	setup_io();
@@ -55,11 +55,11 @@ int main(int argc, char **argv){
 
 	// set initial driving settings
 	int lrpulse = 500; // 0.5 to 2.1ms
-	int fbpulse = 500; // 0.5 to 2.1ms
+	int fbpulse = 1300; // 0.5 to 2.1ms
 
 	// variables for timing
 	struct timeval tNow, tLong, tEnd;
-	unsigned int period = 100*1000; // usec
+	unsigned int period = 14400; // usec
 
 	// reset timer
 	gettimeofday(&tNow, NULL);
@@ -73,10 +73,10 @@ int main(int argc, char **argv){
 		if (lrpulse>2100) {
 			lrpulse = 500;
 		}
-		fbpulse += 10;
-		if (fbpulse>2100) {
-			fbpulse = 500;
-		}
+		// fbpulse += 10;
+		// if (fbpulse>2100) {
+		// 	fbpulse = 500;
+		// }
 
 
 		// check if time to send pulse
