@@ -1,6 +1,6 @@
 
 // from the wiringpi library: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.c
-
+// more info: https://projects.drogon.net/accurate-delays-on-the-raspberry-pi/
 
 
 //#include <sys/wait.h>
