@@ -43,9 +43,6 @@ int main(int argc, char **argv){
 	setup_io();
 	setup_fm();
 
-	// setup u-sec timer
-	initUScounter();
-
 	// set frequency
 	/* more info on how raspi calculates/divides clocks (scroll down for equation):
 	   https://www.tablix.org/~avian/blog/archives/2018/02/notes_on_the_general_purpose_clock_on_bcm2835/ 
@@ -56,16 +53,19 @@ int main(int argc, char **argv){
 	int centerFreqDivider = (int)((500.0 / centerFreq) * (float)(1<<12) + 0.5);
 	ACCESS(CM_GP0DIV) = (0x5a << 24) + centerFreqDivider; // set the GPIO clock frequency divider (0x5a is password)
 
-
-	int currentTime = getUSTime();
-	printf("%d",currentTime);
-
+	// set initial driving settings
 	int lrpulse = 500; // 0.5 to 2.1ms
 	int fbpulse = 500; // 0.5 to 2.1ms
 
 	// variables for timing
 	struct timeval tNow, tLong, tEnd;
 	unsigned int period = 100*1000; // usec
+
+	// reset timer
+	gettimeofday(&tNow, NULL);
+	tLong.tv_sec  = period / 1000000;
+	tLong.tv_usec = period % 1000000;
+	timeradd(&tNow, &tLong, &tEnd) ;
 
 	while(1) {
 		// update drive speed/direction
