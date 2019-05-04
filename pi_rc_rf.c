@@ -43,6 +43,17 @@ int main(int argc, char *argv[]){
 	setup_io();
 	setup_fm();
 
+	// set initial driving settings
+	int lrpulse = atoi(argv[1]); //2100; // 0.5 to 2.1ms
+	int fbpulse = atoi(argv[2]); //1300; // 0.5 to 2.1ms
+
+	// turn off transmit if selected
+	if (lrpulse == 111) {
+		printf("turning off transmitter");
+		askLow();
+		exit(0);
+	}
+
 	// set frequency
 	/* more info on how raspi calculates/divides clocks (scroll down for equation):
 	   https://www.tablix.org/~avian/blog/archives/2018/02/notes_on_the_general_purpose_clock_on_bcm2835/ 
@@ -53,9 +64,7 @@ int main(int argc, char *argv[]){
 	int centerFreqDivider = (int)((500.0 / centerFreq) * (float)(1<<12) + 0.5);
 	ACCESS(CM_GP0DIV) = (0x5a << 24) + centerFreqDivider; // set the GPIO clock frequency divider (0x5a is password)
 
-	// set initial driving settings
-	int lrpulse = atoi(argv[1]); //2100; // 0.5 to 2.1ms
-	int fbpulse = atoi(argv[2]); //1300; // 0.5 to 2.1ms
+	
 
 	// variables for timing
 	struct timeval tNow, tLong, tEnd;
