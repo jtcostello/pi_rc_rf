@@ -58,7 +58,7 @@ int main(int argc, char **argv){
 
 
 	int currentTime = getUSTime();
-	printf("%d",currenTime);
+	printf("%d",currentTime);
 
 	int lrpulse = 500; // 0.5 to 2.1ms
 	int fbpulse = 500; // 0.5 to 2.1ms
