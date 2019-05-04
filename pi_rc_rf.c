@@ -70,7 +70,7 @@ int main(int argc, char **argv){
 	while(1) {
 		// update drive speed/direction
 		lrpulse += 100;
-		if (lrpulse>10000) {
+		if (lrpulse>2100) {
 			lrpulse = 500;
 		}
 		fbpulse += 100;
@@ -83,7 +83,7 @@ int main(int argc, char **argv){
 		printf("sending\n");
 
 
-		delayMicroseconds(14400 - (lrpulse+fbpulse + 3*LOWDELAY));
+		delayMicroseconds(14400);// - (lrpulse+fbpulse + 3*LOWDELAY));
 		
 	}
 
@@ -96,7 +96,7 @@ int main(int argc, char **argv){
 
 
 
-void transmit(uint8_t lrpulse, uint8_t fbpulse){
+void transmit(int lrpulse, int fbpulse){
 	// go low to start pulses
 	askLow();
 	delayMicroseconds(LOWDELAY);
