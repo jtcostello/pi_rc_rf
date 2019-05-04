@@ -71,6 +71,9 @@ void setup_fm(){
 // Set up a memory regions to access GPIO
 //
 void setup_io(){
+    // give high priority for more precise timing (added by JC)
+    piHiPri(99);
+
     /* open /dev/mem */
     if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
         printf("can't open /dev/mem \n");
@@ -129,3 +132,35 @@ void askLow() {
 
 
 // for a function that actually modulates the frequency see the "modulate" function in pifm
+
+
+
+
+
+
+
+
+
+// from wiringPI library: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/piHiPri.c
+#include <sched.h>
+#include <string.h>
+
+
+/*
+ * piHiPri:
+ *  Attempt to set a high priority schedulling for the running program // (99 is highest priority)
+ *********************************************************************************
+ */
+
+int piHiPri (const int pri) {
+  struct sched_param sched ;
+
+  memset (&sched, 0, sizeof(sched)) ;
+
+  if (pri > sched_get_priority_max (SCHED_RR))
+    sched.sched_priority = sched_get_priority_max (SCHED_RR) ;
+  else
+    sched.sched_priority = pri ;
+
+  return sched_setscheduler (0, SCHED_RR, &sched) ;
+}

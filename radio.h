@@ -3,7 +3,7 @@
 #ifndef _RADIO_H_
 #define _RADIO_H_
 
-#define BCM2708_PERI_BASE         0x3F000000 //rpi2 base    0x20000000
+#define BCM2708_PERI_BASE         0x3F000000 //rpi2 base    0x20000000    https://github.com/markondej/fm_transmitter/issues/10
 #define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
 
 #define PAGE_SIZE (4*1024)
@@ -52,5 +52,6 @@ struct GPCTL {
 void setup_fm();
 void askHigh();
 void askLow();
+int piHiPri (const int pri);
 
 #endif

@@ -55,3 +55,22 @@ void initUScounter() {
     }
     TIMER_registers = (volatile unsigned *)TIMER_map;
 }
+
+
+
+// // another option: gettimeofday can do microsecond precision
+// #include <sys/time.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// int main(int argc, char **argv)
+// {
+// int delay = 500;
+// struct timeval start, stop;
+// if (argc > 1) delay = atoi(argv[1]);
+// gettimeofday(&start, NULL);
+// usleep(delay);
+// gettimeofday(&stop, NULL);
+// printf("Elapsed %d\n", (int)((stop.tv_sec-start.tv_sec)*1000000ULL+(stop.tv_usec-start.tv_usec)));
+// return 0;
+// }
