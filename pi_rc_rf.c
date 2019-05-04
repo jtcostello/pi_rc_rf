@@ -31,6 +31,11 @@
 //#include "ustimer.h"
 #include "delay.h"
 
+
+#define LOWDELAY 100 // 0.2 ms
+
+
+
 int main(int argc, char **argv){
 
 	// setup gpio mem and fm
@@ -78,7 +83,7 @@ int main(int argc, char **argv){
 		printf("sending\n");
 
 
-		delayMicroseconds(14000);
+		delayMicroseconds(14400 - (lrpulse+fbpulse + 3*LOWDELAY));
 		
 	}
 
@@ -89,7 +94,7 @@ int main(int argc, char **argv){
 
 
 
-#define LOWDELAY 200 // 0.2 ms
+
 
 void transmit(uint8_t lrpulse, uint8_t fbpulse){
 	// go low to start pulses
