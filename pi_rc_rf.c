@@ -70,7 +70,7 @@ int main(int argc, char **argv){
 	while(1) {
 		// update drive speed/direction
 		lrpulse += 100;
-		if (lrpulse>2100) {
+		if (lrpulse>10000) {
 			lrpulse = 500;
 		}
 		fbpulse += 100;
