@@ -69,11 +69,11 @@ int main(int argc, char **argv){
 	int fbpulse = 500; // 0.5 to 2.1ms
 	while(1) {
 		// update drive speed/direction
-		lrpulse += 10;
+		lrpulse += 100;
 		if (lrpulse>2100) {
 			lrpulse = 500;
 		}
-		fbpulse += 10;
+		fbpulse += 100;
 		if (fbpulse>2100) {
 			fbpulse = 500;
 		}
