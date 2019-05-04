@@ -58,16 +58,15 @@ int main(int argc, char **argv){
 
 
 	int currentTime = getUSTime();
-	// while(1) {
-	// 	printf("%d", getUSTime());
-	// }
-	// printf("running");
-	// //askLow();
-	// while (1) {
-	// 	usleep(1);
-	// }
+	printf("%d",currenTime);
+
 	int lrpulse = 500; // 0.5 to 2.1ms
 	int fbpulse = 500; // 0.5 to 2.1ms
+
+	// variables for timing
+	struct timeval tNow, tLong, tEnd;
+	unsigned int period = 100*1000; // usec
+
 	while(1) {
 		// update drive speed/direction
 		lrpulse += 10;
@@ -79,12 +78,44 @@ int main(int argc, char **argv){
 			fbpulse = 500;
 		}
 
-		// transmit to car
-		transmit(lrpulse, fbpulse);
-		printf("sending\n");
+
+		// check if time to send pulse
+		gettimeofday(&tNow, NULL);
+		if (!timercmp(&tNow, &tEnd, <)) {
+
+			// transmit to car
+			transmit(lrpulse, fbpulse);
+			printf("sending\n");
+
+			//delayMicroseconds(14400);// - (lrpulse+fbpulse + 3*LOWDELAY));
 
 
-		delayMicroseconds(14400);// - (lrpulse+fbpulse + 3*LOWDELAY));
+			// reset timer
+			tLong.tv_sec  = period / 1000000;
+			tLong.tv_usec = period % 1000000;
+			timeradd(&tNow, &tLong, &tEnd) ;
+		}
+		
+
+
+
+
+		// do other computations here (have about 13ms of time)
+
+		// //https://community.hpe.com/t5/Languages-and-Scripting/Timeout-getchar-in-C/td-p/4305162#.XM30qJNKigQ
+		// void got_alarm(int sig) {
+		// 	fprintf(stderr, "Got signal %d\n", sig);
+		// }
+		// int main() {
+		// 	alarm(5*60);
+		// 	signal(SIGALRM, got_alarm);
+		// 	int c = getchar();
+		// 	printf("getchar returned %x\n", c);
+		// 	return 0;
+		// }
+
+
+
 		
 	}
 
@@ -103,20 +134,20 @@ void transmit(int lrpulse, int fbpulse){
 	delayMicroseconds(LOWDELAY);
 
 	// 1st pulse - left/right
-    askHigh();
-    delayMicroseconds(lrpulse);
-    askLow();
+	askHigh();
+	delayMicroseconds(lrpulse);
+	askLow();
 	delayMicroseconds(LOWDELAY);
 
 	// 2nd pulse - forward/back
-    askHigh();
-    delayMicroseconds(fbpulse);
-    askLow();
+	askHigh();
+	delayMicroseconds(fbpulse);
+	askLow();
 	delayMicroseconds(LOWDELAY);
 
 	// return to high
 	askHigh();
-    
+
 
 }
 
