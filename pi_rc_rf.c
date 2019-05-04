@@ -33,6 +33,7 @@
 
 
 #define LOWDELAY 300 // 0.2 ms
+#define FREQUENCY 27 // MHz
 
 
 
@@ -51,7 +52,7 @@ int main(int argc, char **argv){
 	   -> Base clock is probably 500 MHz, then divide by centerFreq. Shift 12 bits to proper position, round up.
 	   additional info on clock base frequencies: 
 	   https://raspberrypi.stackexchange.com/questions/1153/what-are-the-different-clock-sources-for-the-general-purpose-clocks */
-	float centerFreq = 1; //1mhz
+	float centerFreq = FREQUENCY;
 	int centerFreqDivider = (int)((500.0 / centerFreq) * (float)(1<<12) + 0.5);
 	ACCESS(CM_GP0DIV) = (0x5a << 24) + centerFreqDivider; // set the GPIO clock frequency divider (0x5a is password)
 
